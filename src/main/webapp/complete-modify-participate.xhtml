@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <head>
+    </head>
+    <body>
+        <ui:composition template="/WEB-INF/template.xhtml">
+            <ui:define name="title">#{modifyParticipateBean.completeMessage} 完了</ui:define>
+            <ui:define name="content">
+                <h1>勉強会への#{modifyParticipateBean.completeMessage}が完了しました。</h1>
+                <a href="#{request.contextPath}/all-study-meetings.xhtml">一覧へ戻る</a>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

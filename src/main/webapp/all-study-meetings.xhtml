@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <head>
+    </head>
+    <body>
+        <ui:composition template="/WEB-INF/template.xhtml">
+            <ui:define name="content">
+                <div jsfc="ui:repeat" value="#{allStudyMeetingsBean.studyMeetingList}" var="item"
+                     class="panel panel-default list-item">
+                    <div>
+                        <label>タイトル</label>
+                        <a href="#{request.contextPath}/study-meeting-detail.xhtml?id=#{item.id}">#{item.title}</a>
+                    </div>
+
+                    <div>
+                        <label>参加希望者</label>
+                        <span>#{item.numberOfWishing} 人</span>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

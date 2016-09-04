@@ -1,0 +1,46 @@
+.main-block {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    min-width: 500px;
+    max-width: 800px;
+}
+
+.list-item {
+    font-size: 1.3em;
+    padding: 20px;
+    width: 500px;
+    margin: 10px auto;
+}
+
+.list-item label {
+    display: inline-block;
+    width: 130px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.list-item a {
+    width: 300px;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+    color: #337ab7;
+}
+
+.list-item a:hover {
+    color: #23527c;
+}
+
+.register-study-meeting {
+    padding: 30px;
+}
+
+.register-study-meeting textarea {
+    resize: vertical;
+    min-height: 300px;
+}
+

@@ -17,7 +17,7 @@ public class StudyMeetingTest {
 
     @Before
     public void setUp() throws Exception {
-        studyMeeting = new StudyMeeting(null, null);
+        studyMeeting = new StudyMeeting(TITLE1, SUMMARY1);
     }
 
     @Test
@@ -65,6 +65,17 @@ public class StudyMeetingTest {
     }
 
     @Test
+    public void 既に参加しているユーザーが参加希望すると例外がスローされる() throws Exception {
+        // setup
+        studyMeeting.wishJoin(USER1);
+
+        // exercise
+        assertThatThrownBy(() -> studyMeeting.wishJoin(USER1))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("指定されたユーザーは既に参加を希望しています（User = " + USER1 + "）");
+    }
+
+    @Test
     public void 参加希望が0の状態で最新の参加希望登録日時を取得すると空のOptionalが返る() throws Exception {
         // exercise
         Optional<RegisterDateTime> actual = studyMeeting.getMaximumRegisterDateTimeOfWishing();
@@ -93,6 +104,47 @@ public class StudyMeetingTest {
         // verify
         RegisterDateTime expected = new RegisterDateTime(LocalDateTime.of(2016, 1, 1, 0, 0, 2));
         assertThat(actual).hasValue(expected);
+    }
+
+    @Test
+    public void 参加者であるかどうか確認できる_未参加の場合() throws Exception {
+        // exercise
+        boolean actual = studyMeeting.isWishedToParticipateBy(USER1);
+
+        // verify
+        assertThat(actual).isFalse();
+    }
+
+    @Test
+    public void 参加者であるかどうか確認できる_参加の場合() throws Exception {
+        // setup
+        studyMeeting.wishJoin(USER2);
+
+        // exercise
+        boolean actual = studyMeeting.isWishedToParticipateBy(USER2);
+
+        // verify
+        assertThat(actual).isTrue();
+    }
+
+    @Test
+    public void 参加希望をキャンセルできる() throws Exception {
+        // setup
+        studyMeeting.wishJoin(USER1);
+
+        // exercise
+        studyMeeting.cancel(USER1);
+
+        // verify
+        assertThat(studyMeeting.isWishedToParticipateBy(USER1)).isFalse();
+    }
+
+    @Test
+    public void 参加希望を出していないユーザーがキャンセルをしようとした場合は例外がスローされる() throws Exception {
+        // exercise
+        assertThatThrownBy(() -> studyMeeting.cancel(USER1))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("指定されたユーザーは参加希望を出していません（User=" + USER1 + "）");
     }
 
     @After

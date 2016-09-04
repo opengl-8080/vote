@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <head>
+    </head>
+    <body>
+        <ui:composition template="/WEB-INF/template.xhtml">
+            <ui:define name="title">勉強会新規登録</ui:define>
+            <ui:define name="content">
+                <form jsfc="h:form">
+                    <h1>勉強会 新規登録</h1>
+
+                    <h3>#{registerStudyMeetingBean.message}</h3>
+
+                    <div class="panel panel-default register-study-meeting">
+                        <div class="form-group">
+                            <label for="title" class="control-label">タイトル</label>
+                            <input id="title" type="text" class="form-control" jsfc="h:inputText"
+                                   value="#{registerStudyMeetingBean.title}"
+                                   maxlength="100" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="summary" class="control-label">概要</label>
+                            <textarea id="summary" class="form-control" jsfc="h:inputTextarea"
+                                      value="#{registerStudyMeetingBean.summary}"
+                                      maxlength="10000" />
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="登録" jsfc="h:commandButton"
+                                   class="btn btn-primary"
+                                   action="#{registerStudyMeetingBean.register}" />
+                        </div>
+                    </div>
+                </form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

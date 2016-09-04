@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <head jsfc="h:head">
+        <meta charset="UTF-8" />
+        <title><ui:insert name="title">勉強会参加希望調査</ui:insert></title>
+        <link rel="stylesheet" href="./css/bootstrap.min.css" />
+        <link rel="stylesheet" href="./css/vote.css" />
+    </head>
+    <body jsfc="h:body">
+        <nav class="navbar navbar-default">
+            <ul class="nav navbar-nav">
+                <li><a href="#{request.contextPath}/">一覧確認</a></li>
+                <li><a href="#{request.contextPath}/register-study-meeting.xhtml">新規登録</a></li>
+            </ul>
+        </nav>
+        <div class="main-block">
+            <ui:insert name="content">content</ui:insert>
+        </div>
+    </body>
+</html>

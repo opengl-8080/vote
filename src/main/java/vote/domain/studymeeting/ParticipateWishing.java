@@ -1,5 +1,6 @@
 package vote.domain.studymeeting;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import vote.domain.user.User;
@@ -12,12 +13,16 @@ import java.util.Comparator;
 @Value
 @RequiredArgsConstructor
 public class ParticipateWishing {
-    @Embedded
+    @Embedded @NonNull
     private final User user;
-    @Embedded
+    @Embedded @NonNull
     private final RegisterDateTime registerDateTime;
 
-    public static final Comparator<ParticipateWishing> compareByRegisterDateTime() {
+    /**
+     * {@link ParticipateWishing} を、登録日時で昇順に比較する {@link Comparator} を取得する.
+     * @return 登録日時で昇順に比較する {@link Comparator}
+     */
+    public static Comparator<ParticipateWishing> compareByRegisterDateTime() {
         return (a, b) -> a.registerDateTime.compareTo(b.registerDateTime);
     }
 

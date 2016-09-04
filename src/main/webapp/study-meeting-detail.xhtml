@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <head>
+    </head>
+    <body>
+        <f:metadata>
+            <f:viewParam name="id" value="#{studyMeetingDetailBean.id}" />
+            <f:viewAction action="#{studyMeetingDetailBean.init()}" />
+        </f:metadata>
+
+        <ui:composition template="/WEB-INF/template.xhtml">
+            <ui:define name="title">勉強会詳細</ui:define>
+            <ui:define name="content">
+                <form jsfc="h:form">
+                    <div class="panel panel-default register-study-meeting">
+                        <div class="form-group">
+                            <label class="control-label">タイトル</label>
+                            <p class="form-control-static">#{studyMeetingDetailBean.title}</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">参加人数</label>
+                            <p class="form-control-static">#{studyMeetingDetailBean.numberOfWishing}</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">概要</label>
+                            <p class="form-control-static">#{studyMeetingDetailBean.summary}</p>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="#{studyMeetingDetailBean.submitButtonLabel}" jsfc="h:commandButton"
+                                   class="btn #{studyMeetingDetailBean.submitButtonClass}"
+                                   action="#{modifyParticipateBean.execute(studyMeetingDetailBean.id, studyMeetingDetailBean.command)}" />
+                        </div>
+                    </div>
+                </form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
