@@ -15,13 +15,21 @@ repositories {
 dependencies {
     compile 'org.flywaydb:flyway-core:4.0.3'
     providedCompile 'org.projectlombok:lombok:1.16.10'
-    providedCompile 'fish.payara.blue.extras:payara-micro:4.1.1.163'
+    providedCompile 'fish.payara.extras:payara-micro:4.1.1.163'
     testCompile 'junit:junit:4.12'
     testCompile 'org.assertj:assertj-core:3.5.2'
 }
 
 war.baseName = 'vote'
 
+task deploy(type: Exec, dependsOn: war) {
+    def payaraHome = System.env.PAYARA_HOME
+    def asadmin = /$payaraHome\bin\asadmin.bat/
+
+    commandLine('cmd', '/C', asadmin, 'deploy', '--force=true', war.archivePath)
+}
+
+/*
 task uberJar(type: Exec, dependsOn: war) {
     def payaraJarPath = getPayaraJar()
     def warFile = war.archivePath
@@ -45,3 +53,4 @@ def getPayaraJar() {
               .find {it.name =~ /payara-micro.*\.jar/}
               .absolutePath
 }
+*/
