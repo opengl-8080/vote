@@ -25,14 +25,14 @@ public class AllStudyMeetingsTest {
     @Test
     public void 参加希望者の多い勉強会順にソートされていること() throws Exception {
         // setup
-        studyMeeting1.wishJoin(USER1);
+        studyMeeting1.add(USER1);
 
-        studyMeeting2.wishJoin(USER1);
-        studyMeeting2.wishJoin(USER2);
+        studyMeeting2.add(USER1);
+        studyMeeting2.add(USER2);
 
-        studyMeeting3.wishJoin(USER1);
-        studyMeeting3.wishJoin(USER2);
-        studyMeeting3.wishJoin(USER3);
+        studyMeeting3.add(USER1);
+        studyMeeting3.add(USER2);
+        studyMeeting3.add(USER3);
 
         AllStudyMeetings allStudyMeetings = new AllStudyMeetings(Arrays.asList(studyMeeting1, studyMeeting2, studyMeeting3));
 
@@ -46,17 +46,17 @@ public class AllStudyMeetingsTest {
     public void 参加希望者数が同数の場合は_参加希望登録日時の最新が新しいもの順にソートされること() throws Exception {
         // setup
         DateUtil.fixeNow(2016, 1, 1, 0, 0, 0);
-        studyMeeting1.wishJoin(USER1);
+        studyMeeting1.add(USER1);
         DateUtil.fixeNow(2016, 1, 1, 0, 0, 1);
-        studyMeeting1.wishJoin(USER2);
+        studyMeeting1.add(USER2);
 
         DateUtil.fixeNow(2016, 1, 1, 0, 0, 3);
-        studyMeeting2.wishJoin(USER1);
+        studyMeeting2.add(USER1);
 
         DateUtil.fixeNow(2016, 1, 1, 0, 0, 0);
-        studyMeeting3.wishJoin(USER1);
+        studyMeeting3.add(USER1);
         DateUtil.fixeNow(2016, 1, 1, 0, 0, 2);
-        studyMeeting3.wishJoin(USER2);
+        studyMeeting3.add(USER2);
 
         DateUtil.resetNow();
 

@@ -17,6 +17,11 @@
         <welcome-file>all-study-meetings.xhtml</welcome-file>
     </welcome-file-list>
 
+    <error-page>
+        <exception-type>javax.persistence.OptimisticLockException</exception-type>
+        <location>/WEB-INF/optimistic-lock-exception.xhtml</location>
+    </error-page>
+
     <data-source>
         <name>java:app/vote-db</name>
         <class-name>org.apache.derby.jdbc.EmbeddedDataSource</class-name>

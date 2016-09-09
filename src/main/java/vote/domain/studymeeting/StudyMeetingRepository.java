@@ -24,6 +24,13 @@ public interface StudyMeetingRepository {
     StudyMeeting find(Id<StudyMeeting> id);
 
     /**
+     * 指定した勉強会を悲観ロックする.
+     * @param studyMeeting 勉強会
+     * @return 悲観ロック後の勉強会オブジェクト
+     */
+    StudyMeeting lock(StudyMeeting studyMeeting);
+
+    /**
      * 指定した勉強会を削除する.
      * @param studyMeeting 削除する勉強会
      */

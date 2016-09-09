@@ -32,7 +32,7 @@ public class StudyMeetingTest {
     @Test
     public void 参加を希望したら_参加希望者数が1加算される() throws Exception {
         // exercise
-        studyMeeting.wishJoin(USER1);
+        studyMeeting.add(USER1);
 
         // verify
         NumberOfWishing numberOfWishing = studyMeeting.getNumberOfWishing();
@@ -42,7 +42,7 @@ public class StudyMeetingTest {
     @Test
     public void 参加希望したユーザーの情報が参加希望として追加される() throws Exception {
         // exercise
-        studyMeeting.wishJoin(USER1);
+        studyMeeting.add(USER1);
 
         // verify
         ParticipateWishing participateWishing = studyMeeting.getLastAddedWishing();
@@ -56,7 +56,7 @@ public class StudyMeetingTest {
         DateUtil.fixeNow(2016, 3, 2, 12, 14, 21);
 
         // exercise
-        studyMeeting.wishJoin(USER1);
+        studyMeeting.add(USER1);
 
         // verify
         ParticipateWishing participateWishing = studyMeeting.getLastAddedWishing();
@@ -67,10 +67,10 @@ public class StudyMeetingTest {
     @Test
     public void 既に参加しているユーザーが参加希望すると例外がスローされる() throws Exception {
         // setup
-        studyMeeting.wishJoin(USER1);
+        studyMeeting.add(USER1);
 
         // exercise
-        assertThatThrownBy(() -> studyMeeting.wishJoin(USER1))
+        assertThatThrownBy(() -> studyMeeting.add(USER1))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("指定されたユーザーは既に参加を希望しています（User = " + USER1 + "）");
     }
@@ -88,13 +88,13 @@ public class StudyMeetingTest {
     public void 最新の参加希望の登録日時を取得できる() throws Exception {
         // setup
         DateUtil.fixeNow(2016, 1, 1, 0, 0, 0);
-        studyMeeting.wishJoin(USER1);
+        studyMeeting.add(USER1);
 
         DateUtil.fixeNow(2016, 1, 1, 0, 0, 1);
-        studyMeeting.wishJoin(USER2);
+        studyMeeting.add(USER2);
 
         DateUtil.fixeNow(2016, 1, 1, 0, 0, 2);
-        studyMeeting.wishJoin(USER3);
+        studyMeeting.add(USER3);
 
         DateUtil.resetNow();
 
@@ -109,7 +109,7 @@ public class StudyMeetingTest {
     @Test
     public void 参加者であるかどうか確認できる_未参加の場合() throws Exception {
         // exercise
-        boolean actual = studyMeeting.isWishedToParticipateBy(USER1);
+        boolean actual = studyMeeting.isParticipatedBy(USER1);
 
         // verify
         assertThat(actual).isFalse();
@@ -118,10 +118,10 @@ public class StudyMeetingTest {
     @Test
     public void 参加者であるかどうか確認できる_参加の場合() throws Exception {
         // setup
-        studyMeeting.wishJoin(USER2);
+        studyMeeting.add(USER2);
 
         // exercise
-        boolean actual = studyMeeting.isWishedToParticipateBy(USER2);
+        boolean actual = studyMeeting.isParticipatedBy(USER2);
 
         // verify
         assertThat(actual).isTrue();
@@ -130,13 +130,13 @@ public class StudyMeetingTest {
     @Test
     public void 参加希望をキャンセルできる() throws Exception {
         // setup
-        studyMeeting.wishJoin(USER1);
+        studyMeeting.add(USER1);
 
         // exercise
         studyMeeting.cancel(USER1);
 
         // verify
-        assertThat(studyMeeting.isWishedToParticipateBy(USER1)).isFalse();
+        assertThat(studyMeeting.isParticipatedBy(USER1)).isFalse();
     }
 
     @Test

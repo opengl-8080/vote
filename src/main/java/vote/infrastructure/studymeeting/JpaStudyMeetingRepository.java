@@ -8,6 +8,7 @@ import vote.domain.studymeeting.StudyMeetingRepository;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import java.util.List;
 
 @ApplicationScoped
@@ -30,6 +31,13 @@ public class JpaStudyMeetingRepository implements StudyMeetingRepository {
     @Override
     public StudyMeeting find(Id<StudyMeeting> id) {
         return this.em.find(StudyMeeting.class, id);
+    }
+
+    @Override
+    public StudyMeeting lock(StudyMeeting studyMeeting) {
+        StudyMeeting merged = this.em.merge(studyMeeting);
+        this.em.lock(merged, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+        return merged;
     }
 
     @Override

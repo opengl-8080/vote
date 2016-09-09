@@ -14,13 +14,17 @@ public class ParticipateStudyMeetingService {
     @Inject
     private StudyMeetingRepository repository;
 
-    public void participate(Id<StudyMeeting> id, User user) {
-        StudyMeeting studyMeeting = this.repository.find(id);
-        studyMeeting.wishJoin(user);
+    public StudyMeeting get(Id<StudyMeeting> id) {
+        return this.repository.find(id);
     }
 
-    public void cancel(Id<StudyMeeting> id, User user) {
-        StudyMeeting studyMeeting = this.repository.find(id);
-        studyMeeting.cancel(user);
+    public void participate(StudyMeeting studyMeeting, User user) {
+        StudyMeeting locked = this.repository.lock(studyMeeting);
+        locked.add(user);
+    }
+
+    public void cancel(StudyMeeting studyMeeting, User user) {
+        StudyMeeting locked = this.repository.lock(studyMeeting);
+        locked.cancel(user);
     }
 }

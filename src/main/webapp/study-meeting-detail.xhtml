@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <head>
     </head>
@@ -16,6 +15,7 @@
         <ui:composition template="/WEB-INF/template.xhtml">
             <ui:define name="title">勉強会詳細</ui:define>
             <ui:define name="content">
+
                 <form jsfc="h:form">
                     <div class="panel panel-default register-study-meeting">
                         <div class="form-group">
@@ -34,9 +34,15 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="submit" value="#{studyMeetingDetailBean.submitButtonLabel}" jsfc="h:commandButton"
-                                   class="btn #{studyMeetingDetailBean.submitButtonClass}"
-                                   action="#{modifyParticipateBean.execute(studyMeetingDetailBean.id, studyMeetingDetailBean.command)}" />
+                            <input type="submit" value="参加を希望する" jsfc="h:commandButton"
+                                   class="btn btn-primary"
+                                   rendered="#{!studyMeetingDetailBean.participatedByCurrentUser}"
+                                   action="#{studyMeetingDetailBean.wishToParticipate()}" />
+
+                            <input type="submit" value="参加をキャンセルする" jsfc="h:commandButton"
+                                   class="btn btn-danger"
+                                   rendered="#{studyMeetingDetailBean.participatedByCurrentUser}"
+                                   action="#{studyMeetingDetailBean.cancelToParticipate()}" />
                         </div>
                     </div>
                 </form>

@@ -12,6 +12,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,8 @@ public class StudyMeeting implements Serializable {
     private Title title;
     @Embedded
     private Summary summary;
+    @Version
+    private long version;
     @Embedded
     @ElementCollection
     @CollectionTable(name="PARTICIPATE_WISHINGS", joinColumns=@JoinColumn(name="STUDY_MEETINGS_ID", referencedColumnName="ID"))
@@ -46,8 +49,8 @@ public class StudyMeeting implements Serializable {
      * 指定したユーザーを、参加希望者として登録する.
      * @param user 参加を希望するユーザー
      */
-    public void wishJoin(@NonNull User user) {
-        if (this.isWishedToParticipateBy(user)) {
+    public void add(@NonNull User user) {
+        if (this.isParticipatedBy(user)) {
             throw new IllegalArgumentException("指定されたユーザーは既に参加を希望しています（User = " + user + "）");
         }
 
@@ -94,7 +97,7 @@ public class StudyMeeting implements Serializable {
      * @param user 参加希望が確認するユーザー
      * @return 参加を希望している場合は true を返す
      */
-    public boolean isWishedToParticipateBy(@NonNull User user) {
+    public boolean isParticipatedBy(@NonNull User user) {
         return this.participateWishingList.stream().anyMatch(it -> it.getUser().equals(user));
     }
 
