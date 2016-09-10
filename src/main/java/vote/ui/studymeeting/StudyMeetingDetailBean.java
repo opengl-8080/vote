@@ -1,23 +1,24 @@
 package vote.ui.studymeeting;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import vote.application.studymeeting.ParticipateStudyMeetingService;
 import vote.domain.Id;
 import vote.domain.studymeeting.StudyMeeting;
-import vote.domain.studymeeting.StudyMeetingRepository;
 import vote.domain.user.User;
 import vote.infrastructure.user.CurrentAccessUser;
+import vote.ui.NotFoundException;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Optional;
 
 @ViewScoped
 @Named
 @Data
+@Slf4j
 public class StudyMeetingDetailBean implements Serializable {
 
     private long id;
@@ -34,8 +35,9 @@ public class StudyMeetingDetailBean implements Serializable {
     private StudyMeeting studyMeeting;
 
     public void init() {
-        System.out.println("init id=" + this.id);
-        this.studyMeeting = this.service.get(new Id<>(this.id));
+        Optional<StudyMeeting> studyMeeting = this.service.get(new Id<>(this.id));
+
+        this.studyMeeting = studyMeeting.orElseThrow(NotFoundException::new);
 
         this.title = this.studyMeeting.getTitleAsString();
         this.numberOfWishing = this.studyMeeting.getNumberOfWishing().getValue();
@@ -47,13 +49,11 @@ public class StudyMeetingDetailBean implements Serializable {
 
     public String wishToParticipate() {
         this.service.participate(this.studyMeeting, this.currentAccessUser.get());
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "勉強会への参加希望を登録しました。", null));
-        return "WEB-INF/complete-modify-participate.xhtml";
+        return "/study-meeting/complete-participate.xhtml?faces-redirect=true";
     }
 
     public String cancelToParticipate() {
         this.service.cancel(this.studyMeeting, this.currentAccessUser.get());
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "勉強会をキャンセルしました。", null));
-        return "WEB-INF/complete-modify-participate.xhtml";
+        return "/study-meeting/complete-cancel.xhtml?faces-redirect=true";
     }
 }

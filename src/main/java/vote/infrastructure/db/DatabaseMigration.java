@@ -19,6 +19,7 @@ public class DatabaseMigration implements ServletContextListener {
         Flyway flyway = new Flyway();
 
         flyway.setDataSource(this.ds);
+//        flyway.clean();
         flyway.migrate();
     }
 

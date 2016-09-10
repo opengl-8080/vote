@@ -1,7 +1,7 @@
 package vote.infrastructure.studymeeting;
 
 import vote.domain.Id;
-import vote.domain.studymeeting.AllStudyMeetings;
+import vote.domain.studymeeting.UncompletedStudyMeetings;
 import vote.domain.studymeeting.StudyMeeting;
 import vote.domain.studymeeting.StudyMeetingRepository;
 
@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 public class JpaStudyMeetingRepository implements StudyMeetingRepository {
@@ -23,20 +24,21 @@ public class JpaStudyMeetingRepository implements StudyMeetingRepository {
     }
 
     @Override
-    public AllStudyMeetings findAll() {
-        List<StudyMeeting> list = this.em.createNamedQuery("StudyMeeting.findAll", StudyMeeting.class).getResultList();
-        return new AllStudyMeetings(list);
+    public UncompletedStudyMeetings findUncompletedStudyMeetings() {
+        List<StudyMeeting> list = this.em.createNamedQuery("StudyMeeting.findUncompletedStudyMeetings", StudyMeeting.class).getResultList();
+        return new UncompletedStudyMeetings(list);
     }
 
     @Override
-    public StudyMeeting find(Id<StudyMeeting> id) {
-        return this.em.find(StudyMeeting.class, id);
+    public Optional<StudyMeeting> find(Id<StudyMeeting> id) {
+        StudyMeeting studyMeeting = this.em.find(StudyMeeting.class, id);
+        return Optional.ofNullable(studyMeeting);
     }
 
     @Override
     public StudyMeeting lock(StudyMeeting studyMeeting) {
         StudyMeeting merged = this.em.merge(studyMeeting);
-        this.em.lock(merged, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+        this.em.lock(merged, LockModeType.PESSIMISTIC_WRITE);
         return merged;
     }
 

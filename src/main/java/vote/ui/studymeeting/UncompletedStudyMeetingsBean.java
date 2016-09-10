@@ -1,7 +1,7 @@
 package vote.ui.studymeeting;
 
 import lombok.Data;
-import vote.domain.studymeeting.AllStudyMeetings;
+import vote.domain.studymeeting.UncompletedStudyMeetings;
 import vote.domain.studymeeting.StudyMeeting;
 import vote.domain.studymeeting.StudyMeetingRepository;
 
@@ -14,7 +14,7 @@ import java.util.List;
 @Named
 @RequestScoped
 @Data
-public class AllStudyMeetingsBean {
+public class UncompletedStudyMeetingsBean {
 
     @Inject
     private StudyMeetingRepository repository;
@@ -22,9 +22,9 @@ public class AllStudyMeetingsBean {
     public List<StudyMeetingListItem> getStudyMeetingList() {
         List<StudyMeetingListItem> list = new ArrayList<>();
 
-        AllStudyMeetings allStudyMeetings = this.repository.findAll();
+        UncompletedStudyMeetings uncompletedStudyMeetings = this.repository.findUncompletedStudyMeetings();
 
-        for (StudyMeeting studyMeeting : allStudyMeetings) {
+        for (StudyMeeting studyMeeting : uncompletedStudyMeetings) {
             StudyMeetingListItem item = StudyMeetingListItem.of(studyMeeting);
             list.add(item);
         }

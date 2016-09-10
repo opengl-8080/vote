@@ -9,7 +9,7 @@ import java.util.Arrays;
 import static org.assertj.core.api.Assertions.*;
 import static vote.test.TestConstants.*;
 
-public class AllStudyMeetingsTest {
+public class UncompletedStudyMeetingsTest {
 
     private StudyMeeting studyMeeting1;
     private StudyMeeting studyMeeting2;
@@ -34,10 +34,10 @@ public class AllStudyMeetingsTest {
         studyMeeting3.add(USER2);
         studyMeeting3.add(USER3);
 
-        AllStudyMeetings allStudyMeetings = new AllStudyMeetings(Arrays.asList(studyMeeting1, studyMeeting2, studyMeeting3));
+        UncompletedStudyMeetings uncompletedStudyMeetings = new UncompletedStudyMeetings(Arrays.asList(studyMeeting1, studyMeeting2, studyMeeting3));
 
         // exercise
-        assertThat(allStudyMeetings).containsExactly(
+        assertThat(uncompletedStudyMeetings).containsExactly(
             studyMeeting3, studyMeeting2, studyMeeting1
         );
     }
@@ -60,10 +60,10 @@ public class AllStudyMeetingsTest {
 
         DateUtil.resetNow();
 
-        AllStudyMeetings allStudyMeetings = new AllStudyMeetings(Arrays.asList(studyMeeting1, studyMeeting2, studyMeeting3));
+        UncompletedStudyMeetings uncompletedStudyMeetings = new UncompletedStudyMeetings(Arrays.asList(studyMeeting1, studyMeeting2, studyMeeting3));
 
         // exercise
-        assertThat(allStudyMeetings).containsExactly(
+        assertThat(uncompletedStudyMeetings).containsExactly(
                 studyMeeting3, studyMeeting1, studyMeeting2
         );
     }

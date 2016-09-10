@@ -2,6 +2,8 @@ package vote.domain.studymeeting;
 
 import vote.domain.Id;
 
+import java.util.Optional;
+
 public interface StudyMeetingRepository {
 
     /**
@@ -11,17 +13,17 @@ public interface StudyMeetingRepository {
     void register(StudyMeeting studyMeeting);
 
     /**
-     * 全勉強会を取得する.
-     * @return 全勉強会
+     * 未実施の勉強会を取得する.
+     * @return 未実施の勉強会
      */
-    AllStudyMeetings findAll();
+    UncompletedStudyMeetings findUncompletedStudyMeetings();
 
     /**
      * 指定したIDの勉強会を取得する.
      * @param id 勉強会のID
      * @return 該当する勉強会
      */
-    StudyMeeting find(Id<StudyMeeting> id);
+    Optional<StudyMeeting> find(Id<StudyMeeting> id);
 
     /**
      * 指定した勉強会を悲観ロックする.

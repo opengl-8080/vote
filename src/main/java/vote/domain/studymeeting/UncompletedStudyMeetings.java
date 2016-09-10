@@ -7,13 +7,13 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * 全勉強会.
+ * 未実施の勉強会.
  */
-public class AllStudyMeetings implements Iterable<StudyMeeting> {
+public class UncompletedStudyMeetings implements Iterable<StudyMeeting> {
 
     private final List<StudyMeeting> list;
 
-    public AllStudyMeetings(@NonNull List<StudyMeeting> list) {
+    public UncompletedStudyMeetings(@NonNull List<StudyMeeting> list) {
         this.list = new ArrayList<>(list);
         this.list.sort(this::compareByNumberOfWishingDescAndMaximumRegisterDateTimeOfWishingDesc);
     }

@@ -12,7 +12,6 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
-import javax.persistence.Version;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +31,7 @@ public class StudyMeeting implements Serializable {
     private Title title;
     @Embedded
     private Summary summary;
-    @Version
-    private long version;
+    private boolean completed;
     @Embedded
     @ElementCollection
     @CollectionTable(name="PARTICIPATE_WISHINGS", joinColumns=@JoinColumn(name="STUDY_MEETINGS_ID", referencedColumnName="ID"))
@@ -51,7 +49,7 @@ public class StudyMeeting implements Serializable {
      */
     public void add(@NonNull User user) {
         if (this.isParticipatedBy(user)) {
-            throw new IllegalArgumentException("指定されたユーザーは既に参加を希望しています（User = " + user + "）");
+            throw new IllegalParticipateStudyMeetingException("指定されたユーザーは既に参加を希望しています（User = " + user + "）");
         }
 
         ParticipateWishing participateWishing = new ParticipateWishing(user, RegisterDateTime.now());
@@ -66,7 +64,7 @@ public class StudyMeeting implements Serializable {
         boolean removed = this.participateWishingList.removeIf(it -> it.getUser().equals(user));
 
         if (!removed) {
-            throw new IllegalArgumentException("指定されたユーザーは参加希望を出していません（User=" + user + "）");
+            throw new IllegalParticipateStudyMeetingException("指定されたユーザーは参加希望を出していません（User=" + user + "）");
         }
     }
 
@@ -99,6 +97,28 @@ public class StudyMeeting implements Serializable {
      */
     public boolean isParticipatedBy(@NonNull User user) {
         return this.participateWishingList.stream().anyMatch(it -> it.getUser().equals(user));
+    }
+
+    /**
+     * この勉強会を実施済みに変更する.
+     */
+    public void complete() {
+        this.completed = true;
+    }
+
+    /**
+     * この勉強会を未実施に戻す.
+     */
+    public void reopen() {
+        this.completed = false;
+    }
+
+    /**
+     * この勉強会が実施済みかどうか確認する.
+     * @return 実施済みの場合は true
+     */
+    public boolean isCompleted() {
+        return this.completed;
     }
 
     /**

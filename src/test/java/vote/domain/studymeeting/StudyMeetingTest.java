@@ -71,7 +71,7 @@ public class StudyMeetingTest {
 
         // exercise
         assertThatThrownBy(() -> studyMeeting.add(USER1))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(IllegalParticipateStudyMeetingException.class)
                 .hasMessage("指定されたユーザーは既に参加を希望しています（User = " + USER1 + "）");
     }
 
@@ -143,8 +143,40 @@ public class StudyMeetingTest {
     public void 参加希望を出していないユーザーがキャンセルをしようとした場合は例外がスローされる() throws Exception {
         // exercise
         assertThatThrownBy(() -> studyMeeting.cancel(USER1))
-            .isInstanceOf(IllegalArgumentException.class)
+            .isInstanceOf(IllegalParticipateStudyMeetingException.class)
             .hasMessage("指定されたユーザーは参加希望を出していません（User=" + USER1 + "）");
+    }
+
+    @Test
+    public void 生成直後は未実施() throws Exception {
+        // exercise
+        boolean actual = studyMeeting.isCompleted();
+
+        // verify
+        assertThat(actual).isFalse();
+    }
+
+    @Test
+    public void 実施済みに変更できる() throws Exception {
+        // exercise
+        studyMeeting.complete();
+
+        // verify
+        boolean actual = studyMeeting.isCompleted();
+        assertThat(actual).isTrue();
+    }
+
+    @Test
+    public void 未実施に戻すこともできる() throws Exception {
+        // setup
+        studyMeeting.complete();
+
+        // exercise
+        studyMeeting.reopen();
+
+        // verify
+        boolean actual = studyMeeting.isCompleted();
+        assertThat(actual).isFalse();
     }
 
     @After

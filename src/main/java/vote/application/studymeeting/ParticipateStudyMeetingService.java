@@ -7,6 +7,7 @@ import vote.domain.user.User;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import java.util.Optional;
 
 @Stateless
 public class ParticipateStudyMeetingService {
@@ -14,7 +15,7 @@ public class ParticipateStudyMeetingService {
     @Inject
     private StudyMeetingRepository repository;
 
-    public StudyMeeting get(Id<StudyMeeting> id) {
+    public Optional<StudyMeeting> get(Id<StudyMeeting> id) {
         return this.repository.find(id);
     }
 
