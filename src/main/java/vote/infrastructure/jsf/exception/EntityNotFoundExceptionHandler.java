@@ -1,6 +1,6 @@
 package vote.infrastructure.jsf.exception;
 
-import vote.ui.NotFoundException;
+import vote.domain.EntityNotFoundException;
 
 import javax.faces.FacesException;
 import javax.faces.application.NavigationHandler;
@@ -11,10 +11,10 @@ import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
 import java.util.Iterator;
 
-public class NotFoundExceptionHandler extends ExceptionHandlerWrapper {
+public class EntityNotFoundExceptionHandler extends ExceptionHandlerWrapper {
     private ExceptionHandler wrapped;
 
-    public NotFoundExceptionHandler(ExceptionHandler wrapped) {
+    public EntityNotFoundExceptionHandler(ExceptionHandler wrapped) {
         this.wrapped = wrapped;
     }
 
@@ -28,7 +28,7 @@ public class NotFoundExceptionHandler extends ExceptionHandlerWrapper {
             ExceptionQueuedEventContext eventContext = event.getContext();
             Throwable exception = eventContext.getException();
 
-            if (Util.hasRootCause(exception, NotFoundException.class)) {
+            if (Util.hasRootCause(exception, EntityNotFoundException.class)) {
                 FacesContext facesContext = eventContext.getContext();
                 NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
 

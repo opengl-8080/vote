@@ -31,4 +31,8 @@ public class ParticipateWishing {
         this.user = null;
         this.registerDateTime = null;
     }
+
+    public String getIpAddressAsString() {
+        return this.user.getIpAddressAsString();
+    }
 }

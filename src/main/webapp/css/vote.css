@@ -35,12 +35,47 @@
     color: #23527c;
 }
 
-.register-study-meeting {
+.study-meeting-maintenance {
     padding: 30px;
 }
 
-.register-study-meeting textarea {
+.study-meeting-maintenance textarea {
     resize: vertical;
     min-height: 300px;
+    font-family: "ＭＳ　ゴシック", monospace;
+}
+
+.study-meeting-detail {
+    padding: 30px;
+}
+
+.study-meeting-detail label {
+    border-bottom: 1px solid #ccc;
+    display: block;
+    padding-bottom: 10px;
+}
+
+.study-meeting-detail p {
+    padding-left: 10px;
+}
+
+.back-top {
+    display: block;
+    margin-top: 50px;
+    font-size: 1.7em;
+}
+
+.error-message {
+    margin-left: 10px;
+}
+
+#switchPreview {
+    color: #2fa4e7;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+#switchPreview:hover {
+    color: #3a87ad;
 }
 

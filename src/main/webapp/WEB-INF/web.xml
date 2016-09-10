@@ -18,7 +18,7 @@
     </welcome-file-list>
 
     <error-page>
-        <exception-type>vote.ui.NotFoundException</exception-type>
+        <exception-type>vote.domain.EntityNotFoundException</exception-type>
         <location>/common/not-found.html</location>
     </error-page>
 

@@ -17,8 +17,20 @@ public class User {
         this.ipAddress = ipAddress;
     }
 
+    /**
+     * このユーザーが管理者であることを確認する.
+     * @return ユーザーが管理者の場合は true
+     */
+    public boolean isAdministrator() {
+        return this.ipAddress.isLocalhost();
+    }
+
     @Deprecated
     private User() {
         this.ipAddress = null;
+    }
+
+    public String getIpAddressAsString() {
+        return this.ipAddress.getValue();
     }
 }

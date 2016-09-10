@@ -4,13 +4,13 @@ import vote.domain.Id;
 import vote.domain.studymeeting.UncompletedStudyMeetings;
 import vote.domain.studymeeting.StudyMeeting;
 import vote.domain.studymeeting.StudyMeetingRepository;
+import vote.domain.EntityNotFoundException;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import java.util.List;
-import java.util.Optional;
 
 @ApplicationScoped
 public class JpaStudyMeetingRepository implements StudyMeetingRepository {
@@ -30,9 +30,19 @@ public class JpaStudyMeetingRepository implements StudyMeetingRepository {
     }
 
     @Override
-    public Optional<StudyMeeting> find(Id<StudyMeeting> id) {
+    public StudyMeeting find(Id<StudyMeeting> id) {
         StudyMeeting studyMeeting = this.em.find(StudyMeeting.class, id);
-        return Optional.ofNullable(studyMeeting);
+        if (studyMeeting == null) {
+            throw new EntityNotFoundException();
+        }
+        return studyMeeting;
+    }
+
+    @Override
+    public StudyMeeting findWithLock(Id<StudyMeeting> id) {
+        StudyMeeting studyMeeting = this.find(id);
+        this.em.lock(studyMeeting, LockModeType.PESSIMISTIC_WRITE);
+        return studyMeeting;
     }
 
     @Override

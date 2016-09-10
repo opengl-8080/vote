@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <head>
     </head>
     <body>
@@ -12,21 +13,28 @@
                 <form jsfc="h:form">
                     <h1>勉強会 新規登録</h1>
 
-                    <h3>#{registerStudyMeetingBean.message}</h3>
+                    <h:messages styleClass="list-unstyled h3 text-success"
+                                infoClass="text-success"
+                                globalOnly="true"
+                                errorClass="text-danger" />
 
-                    <div class="panel panel-default register-study-meeting">
+                    <div class="panel panel-default study-meeting-maintenance">
                         <div class="form-group">
                             <label for="title" class="control-label">タイトル</label>
+                            <h:message for="title" styleClass="text-danger error-message" />
                             <input id="title" type="text" class="form-control" jsfc="h:inputText"
                                    value="#{registerStudyMeetingBean.title}"
+                                   required="true"
                                    maxlength="100" />
                         </div>
 
                         <div class="form-group">
                             <label for="summary" class="control-label">概要</label>
+                            <h:message for="summary" styleClass="text-danger error-message" />
                             <textarea id="summary" class="form-control" jsfc="h:inputTextarea"
                                       value="#{registerStudyMeetingBean.summary}"
-                                      maxlength="10000" />
+                                      required="true"
+                                      a:maxlength="10000" />
                         </div>
 
                         <div class="form-group">

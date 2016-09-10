@@ -5,6 +5,7 @@ import lombok.ToString;
 import vote.domain.Id;
 import vote.domain.user.User;
 
+import javax.mail.Part;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
@@ -12,10 +13,13 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static java.util.stream.Collectors.*;
 
 /**
  * 勉強会.
@@ -36,6 +40,8 @@ public class StudyMeeting implements Serializable {
     @ElementCollection
     @CollectionTable(name="PARTICIPATE_WISHINGS", joinColumns=@JoinColumn(name="STUDY_MEETINGS_ID", referencedColumnName="ID"))
     private List<ParticipateWishing> participateWishingList = new ArrayList<>();
+    @Version
+    private long version;
 
     public StudyMeeting(@NonNull Title title, @NonNull Summary summary) {
         this.id = new Id<>(-1L);
@@ -159,6 +165,16 @@ public class StudyMeeting implements Serializable {
      */
     public String getSummaryAsString() {
         return this.summary.getValue();
+    }
+
+    /**
+     * 参加希望者の IP アドレスを文字列形式にしたリストを返す.
+     * @return 参加者の IP アドレス一覧
+     */
+    public List<String> getIpAddressStringList() {
+        return this.participateWishingList.stream()
+                .map(ParticipateWishing::getIpAddressAsString)
+                .collect(toList());
     }
 
     @Deprecated

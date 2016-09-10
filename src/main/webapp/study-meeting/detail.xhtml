@@ -12,12 +12,27 @@
             <f:viewAction action="#{studyMeetingDetailBean.init()}" />
         </f:metadata>
 
+
+
         <ui:composition template="/WEB-INF/page/template.xhtml">
+            <ui:define name="stylesheet">
+                <link rel="stylesheet" href="#{request.contextPath}/css/github.css" />
+                <link rel="stylesheet" href="#{request.contextPath}/css/github-markdown.css" />
+            </ui:define>
+
+            <ui:define name="javascript">
+                <script type="text/javascript" src="#{request.contextPath}/js/lib/highlight.pack.js"></script>
+                <script type="text/javascript" src="#{request.contextPath}/js/lib/marked.min.js"></script>
+                <script type="text/javascript" src="#{request.contextPath}/js/common/MarkdownUtil.js"></script>
+                <script type="text/javascript" src="#{request.contextPath}/js/study-meeting/detail.js"></script>
+            </ui:define>
+
             <ui:define name="title">勉強会詳細</ui:define>
+
             <ui:define name="content">
 
                 <form jsfc="h:form">
-                    <div class="panel panel-default register-study-meeting">
+                    <div class="panel panel-default study-meeting-detail">
                         <div class="form-group">
                             <label class="control-label">タイトル</label>
                             <p class="form-control-static">#{studyMeetingDetailBean.title}</p>
@@ -28,12 +43,24 @@
                             <p class="form-control-static">#{studyMeetingDetailBean.numberOfWishing}</p>
                         </div>
 
-                        <div class="form-group">
-                            <label class="control-label">概要</label>
-                            <p class="form-control-static">#{studyMeetingDetailBean.summary}</p>
-                        </div>
+                        <ui:fragment rendered="#{currentAccessUser.administrator}">
+                            <div class="form-group">
+                                <label class="control-label">参加希望者（管理者用）</label>
+                                <ul>
+                                    <li jsfc="ui:repeat" value="#{studyMeetingDetailBean.ipAddressList}" var="ipAddress">
+                                        #{ipAddress}
+                                    </li>
+                                </ul>
+                            </div>
+                        </ui:fragment>
 
                         <div class="form-group">
+                            <label class="control-label">概要</label>
+                            <p class="form-control-static markdown-body" id="summary">
+                            </p>
+                        </div>
+
+                        <div class="form-group text-center">
                             <input type="submit" value="参加を希望する" jsfc="h:commandButton"
                                    class="btn btn-primary"
                                    rendered="#{!studyMeetingDetailBean.participatedByCurrentUser}"
@@ -44,6 +71,18 @@
                                    rendered="#{studyMeetingDetailBean.participatedByCurrentUser}"
                                    action="#{studyMeetingDetailBean.cancelToParticipate()}" />
                         </div>
+
+                        <ui:fragment rendered="#{currentAccessUser.administrator}">
+                            <div class="form-group text-right">
+                                <a class="btn btn-success"
+                                   jsfc="h:link"
+                                   outcome="/study-meeting/modify.xhtml?id=#{studyMeetingDetailBean.id}">
+                                    編集
+                                </a>
+                            </div>
+                        </ui:fragment>
+
+                        <script type="text/plain" id="summaryMarkdown">#{studyMeetingDetailBean.summary}</script>
                     </div>
                 </form>
             </ui:define>

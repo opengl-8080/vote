@@ -2,8 +2,6 @@ package vote.domain.studymeeting;
 
 import vote.domain.Id;
 
-import java.util.Optional;
-
 public interface StudyMeetingRepository {
 
     /**
@@ -22,13 +20,22 @@ public interface StudyMeetingRepository {
      * 指定したIDの勉強会を取得する.
      * @param id 勉強会のID
      * @return 該当する勉強会
+     * @throws vote.domain.EntityNotFoundException 指定した勉強会が存在しない場合
      */
-    Optional<StudyMeeting> find(Id<StudyMeeting> id);
+    StudyMeeting find(Id<StudyMeeting> id);
 
     /**
-     * 指定した勉強会を悲観ロックする.
+     * 指定したIDの勉強会をロックして取得する.
+     * @param id 勉強会のID
+     * @return 該当する勉強会
+     * @throws vote.domain.EntityNotFoundException 指定した勉強会が存在しない場合
+     */
+    StudyMeeting findWithLock(Id<StudyMeeting> id);
+
+    /**
+     * 指定した勉強会をロックする.
      * @param studyMeeting 勉強会
-     * @return 悲観ロック後の勉強会オブジェクト
+     * @return ロック後の勉強会オブジェクト
      */
     StudyMeeting lock(StudyMeeting studyMeeting);
 

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <head>
+    </head>
+    <body>
+        <f:metadata>
+            <f:viewParam name="id" value="#{modifyStudyMeetingBean.id}" />
+            <f:viewAction action="#{modifyStudyMeetingBean.init()}" />
+        </f:metadata>
+
+        <ui:composition template="/WEB-INF/page/template.xhtml">
+            <ui:define name="stylesheet">
+                <link rel="stylesheet" href="#{request.contextPath}/css/github.css" />
+                <link rel="stylesheet" href="#{request.contextPath}/css/github-markdown.css" />
+            </ui:define>
+
+            <ui:define name="javascript">
+                <script type="text/javascript" src="#{request.contextPath}/js/lib/highlight.pack.js"></script>
+                <script type="text/javascript" src="#{request.contextPath}/js/lib/marked.min.js"></script>
+                <script type="text/javascript" src="#{request.contextPath}/js/common/MarkdownUtil.js"></script>
+                <script type="text/javascript" src="#{request.contextPath}/js/study-meeting/modify.js"></script>
+            </ui:define>
+
+            <ui:define name="title">勉強会新規編集</ui:define>
+
+            <ui:define name="content">
+                <form jsfc="h:form">
+                    <h1>
+                        勉強会 編集
+                        <a type="submit" jsfc="h:commandLink"
+                           class="btn btn-danger btn-xs pull-right"
+                           onclick="return confirm('削除すると元に戻せません。\n本当によろしいですか？')"
+                           action="#{modifyStudyMeetingBean.delete}">
+                            削除
+                        </a>
+                    </h1>
+
+                    <h:messages styleClass="list-unstyled h3 text-success"
+                                infoClass="text-success"
+                                globalOnly="true"
+                                errorClass="text-danger" />
+
+                    <div class="panel panel-default study-meeting-maintenance">
+                        <div class="form-group">
+                            <label for="title" class="control-label">タイトル</label>
+                            <h:message for="title" styleClass="text-danger error-message" />
+                            <input id="title" type="text" class="form-control" jsfc="h:inputText"
+                                   value="#{modifyStudyMeetingBean.title}"
+                                   required="true"
+                                   maxlength="100" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="summary" class="control-label">概要</label>
+                            <span id="switchPreview">プレビュー</span>
+                            <h:message for="summary" styleClass="text-danger error-message" />
+                            <textarea id="summary" class="form-control summaryTextArea" jsfc="h:inputTextarea"
+                                      value="#{modifyStudyMeetingBean.summary}"
+                                      required="true"
+                                      a:maxlength="10000" />
+
+                            <p class="form-control-static markdown-body" id="preview">
+                            </p>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="更新" jsfc="h:commandButton"
+                                   class="btn btn-success"
+                                   action="#{modifyStudyMeetingBean.modify}" />
+                        </div>
+                    </div>
+                </form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
