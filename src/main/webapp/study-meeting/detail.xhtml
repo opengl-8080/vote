@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <head>
     </head>
     <body>
@@ -11,8 +12,6 @@
             <f:viewParam name="id" value="#{studyMeetingDetailBean.id}" />
             <f:viewAction action="#{studyMeetingDetailBean.init()}" />
         </f:metadata>
-
-
 
         <ui:composition template="/WEB-INF/page/template.xhtml">
             <ui:define name="stylesheet">
@@ -61,22 +60,21 @@
                         </div>
 
                         <div class="form-group text-center">
-                            <input type="submit" value="参加を希望する" jsfc="h:commandButton"
+                            <input type="submit" value="参加を希望する"
                                    class="btn btn-primary"
                                    rendered="#{!studyMeetingDetailBean.participatedByCurrentUser}"
-                                   action="#{studyMeetingDetailBean.wishToParticipate()}" />
+                                   jsf:action="#{studyMeetingDetailBean.wishToParticipate()}" />
 
-                            <input type="submit" value="参加をキャンセルする" jsfc="h:commandButton"
+                            <input type="submit" value="参加をキャンセルする"
                                    class="btn btn-danger"
                                    rendered="#{studyMeetingDetailBean.participatedByCurrentUser}"
-                                   action="#{studyMeetingDetailBean.cancelToParticipate()}" />
+                                   jsf:action="#{studyMeetingDetailBean.cancelToParticipate()}" />
                         </div>
 
                         <ui:fragment rendered="#{currentAccessUser.administrator}">
                             <div class="form-group text-right">
                                 <a class="btn btn-success"
-                                   jsfc="h:link"
-                                   outcome="/study-meeting/modify.xhtml?id=#{studyMeetingDetailBean.id}">
+                                   jsf:outcome="/study-meeting/modify.xhtml?id=#{studyMeetingDetailBean.id}">
                                     編集
                                 </a>
                             </div>

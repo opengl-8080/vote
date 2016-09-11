@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <head>
     </head>
     <body>
@@ -11,7 +12,7 @@
                 <div class="text-center">
                     <h1>勉強会を削除しました</h1>
                     <a class="back-top"
-                       href="#{request.contextPath}/study-meeting/uncompleted.xhtml">一覧へ戻る</a>
+                       jsf:outcome="/study-meeting/uncompleted.xhtml">一覧へ戻る</a>
                 </div>
             </ui:define>
         </ui:composition>

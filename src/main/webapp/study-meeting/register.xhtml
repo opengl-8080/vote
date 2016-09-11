@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <head>
     </head>
@@ -22,7 +23,7 @@
                         <div class="form-group">
                             <label for="title" class="control-label">タイトル</label>
                             <h:message for="title" styleClass="text-danger error-message" />
-                            <input id="title" type="text" class="form-control" jsfc="h:inputText"
+                            <input jsf:id="title" type="text" class="form-control"
                                    value="#{registerStudyMeetingBean.title}"
                                    required="true"
                                    maxlength="100" />
@@ -31,16 +32,16 @@
                         <div class="form-group">
                             <label for="summary" class="control-label">概要</label>
                             <h:message for="summary" styleClass="text-danger error-message" />
-                            <textarea id="summary" class="form-control" jsfc="h:inputTextarea"
+                            <textarea jsf:id="summary" class="form-control"
                                       value="#{registerStudyMeetingBean.summary}"
                                       required="true"
                                       a:maxlength="10000" />
                         </div>
 
                         <div class="form-group">
-                            <input type="submit" value="登録" jsfc="h:commandButton"
+                            <input type="submit" value="登録"
                                    class="btn btn-primary"
-                                   action="#{registerStudyMeetingBean.register}" />
+                                   jsf:action="#{registerStudyMeetingBean.register}" />
                         </div>
                     </div>
                 </form>
