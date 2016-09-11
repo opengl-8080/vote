@@ -24,6 +24,7 @@ import java.io.Serializable;
 public class ModifyStudyMeetingBean implements Serializable {
 
     private long id;
+    private boolean completed;
     private String title;
     private String summary;
 
@@ -38,10 +39,11 @@ public class ModifyStudyMeetingBean implements Serializable {
         this.studyMeeting = this.repository.find(new Id<>(this.id));
         this.title = this.studyMeeting.getTitleAsString();
         this.summary = this.studyMeeting.getSummaryAsString();
+        this.completed = this.studyMeeting.isCompleted();
     }
 
     public void modify() throws IOException {
-        this.service.modify(this.studyMeeting, new Title(this.title), new Summary(this.summary));
+        this.service.modify(this.studyMeeting, new Title(this.title), new Summary(this.summary), this.completed);
 
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "更新しました", null));

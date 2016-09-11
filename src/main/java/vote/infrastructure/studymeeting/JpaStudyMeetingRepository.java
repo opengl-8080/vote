@@ -1,6 +1,7 @@
 package vote.infrastructure.studymeeting;
 
 import vote.domain.Id;
+import vote.domain.studymeeting.CompletedStudyMeetings;
 import vote.domain.studymeeting.UncompletedStudyMeetings;
 import vote.domain.studymeeting.StudyMeeting;
 import vote.domain.studymeeting.StudyMeetingRepository;
@@ -27,6 +28,12 @@ public class JpaStudyMeetingRepository implements StudyMeetingRepository {
     public UncompletedStudyMeetings findUncompletedStudyMeetings() {
         List<StudyMeeting> list = this.em.createNamedQuery("StudyMeeting.findUncompletedStudyMeetings", StudyMeeting.class).getResultList();
         return new UncompletedStudyMeetings(list);
+    }
+
+    @Override
+    public CompletedStudyMeetings findCompletedStudyMeetings() {
+        List<StudyMeeting> list = this.em.createNamedQuery("StudyMeeting.findCompletedStudyMeetings", StudyMeeting.class).getResultList();
+        return new CompletedStudyMeetings(list);
     }
 
     @Override

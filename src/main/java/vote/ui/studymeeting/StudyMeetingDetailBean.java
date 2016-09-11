@@ -25,6 +25,7 @@ public class StudyMeetingDetailBean implements Serializable {
     private int numberOfWishing;
     private String summary;
     private boolean participatedByCurrentUser;
+    private boolean completed;
     private List<String> ipAddressList;
 
     @Inject
@@ -41,6 +42,7 @@ public class StudyMeetingDetailBean implements Serializable {
         this.numberOfWishing = this.studyMeeting.getNumberOfWishing().getValue();
         this.summary = this.studyMeeting.getSummaryAsString();
         this.ipAddressList = this.studyMeeting.getIpAddressStringList();
+        this.completed = this.studyMeeting.isCompleted();
 
         User user = this.currentAccessUser.get();
         this.participatedByCurrentUser = this.studyMeeting.isParticipatedBy(user);

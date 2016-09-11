@@ -5,7 +5,6 @@ import lombok.ToString;
 import vote.domain.Id;
 import vote.domain.user.User;
 
-import javax.mail.Part;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
@@ -16,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,11 +81,14 @@ public class StudyMeeting implements Serializable {
      *
      * @return 最新の参加希望の登録日時
      */
-    public Optional<RegisterDateTime> getMaximumRegisterDateTimeOfWishing() {
-        Optional<ParticipateWishing> max =
-                this.participateWishingList.stream().max(ParticipateWishing.compareByRegisterDateTime());
+    public Optional<RegisterDateTime> getRecentRegisterDateTimeOfWishing() {
+        if (this.participateWishingList.isEmpty()) {
+            return Optional.empty();
+        }
 
-        return max.map(ParticipateWishing::getRegisterDateTime);
+        ParticipateWishing recent = Collections.max(this.participateWishingList, ParticipateWishing::compareByRegisterDateTime);
+
+        return Optional.of(recent.getRegisterDateTime());
     }
 
     /**
@@ -94,6 +97,15 @@ public class StudyMeeting implements Serializable {
      */
     public NumberOfWishing getNumberOfWishing() {
         return new NumberOfWishing(this.participateWishingList.size());
+    }
+
+    /**
+     * 指定した勉強会とタイトルの昇順で比較する.
+     * @param other 比較対象の勉強会
+     * @return {@link java.util.Comparator Comparator} の仕様に従った比較結果値
+     */
+    public int compareByTitle(StudyMeeting other) {
+        return this.title.compareTo(other.title);
     }
 
     /**

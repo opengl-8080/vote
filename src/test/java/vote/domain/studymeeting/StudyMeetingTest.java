@@ -78,7 +78,7 @@ public class StudyMeetingTest {
     @Test
     public void 参加希望が0の状態で最新の参加希望登録日時を取得すると空のOptionalが返る() throws Exception {
         // exercise
-        Optional<RegisterDateTime> actual = studyMeeting.getMaximumRegisterDateTimeOfWishing();
+        Optional<RegisterDateTime> actual = studyMeeting.getRecentRegisterDateTimeOfWishing();
 
         // verify
         assertThat(actual).isEmpty();
@@ -99,7 +99,7 @@ public class StudyMeetingTest {
         DateUtil.resetNow();
 
         // exercise
-        Optional<RegisterDateTime> actual = studyMeeting.getMaximumRegisterDateTimeOfWishing();
+        Optional<RegisterDateTime> actual = studyMeeting.getRecentRegisterDateTimeOfWishing();
 
         // verify
         RegisterDateTime expected = new RegisterDateTime(LocalDateTime.of(2016, 1, 1, 0, 0, 2));

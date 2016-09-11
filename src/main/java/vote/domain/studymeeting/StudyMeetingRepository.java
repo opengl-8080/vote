@@ -17,6 +17,12 @@ public interface StudyMeetingRepository {
     UncompletedStudyMeetings findUncompletedStudyMeetings();
 
     /**
+     * 実施済みの勉強会を取得する.
+     * @return 実施済みの勉強会
+     */
+    CompletedStudyMeetings findCompletedStudyMeetings();
+
+    /**
      * 指定したIDの勉強会を取得する.
      * @param id 勉強会のID
      * @return 該当する勉強会

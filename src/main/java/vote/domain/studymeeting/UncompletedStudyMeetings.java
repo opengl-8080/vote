@@ -31,8 +31,8 @@ public class UncompletedStudyMeetings implements Iterable<StudyMeeting> {
             return numberOfWishingOrder;
         }
 
-        RegisterDateTime aRegisterDateTime = a.getMaximumRegisterDateTimeOfWishing().orElse(RegisterDateTime.MIN);
-        RegisterDateTime bRegisterDateTime = b.getMaximumRegisterDateTimeOfWishing().orElse(RegisterDateTime.MIN);
+        RegisterDateTime aRegisterDateTime = a.getRecentRegisterDateTimeOfWishing().orElse(RegisterDateTime.MIN);
+        RegisterDateTime bRegisterDateTime = b.getRecentRegisterDateTimeOfWishing().orElse(RegisterDateTime.MIN);
 
         return -1 * aRegisterDateTime.compareTo(bRegisterDateTime);
     }

@@ -14,11 +14,16 @@ public class ModifyStudyMeetingService {
     @Inject
     private StudyMeetingRepository repository;
 
-    public void modify(StudyMeeting studyMeeting, Title title, Summary summary) {
+    public void modify(StudyMeeting studyMeeting, Title title, Summary summary, boolean completed) {
         StudyMeeting locked = this.repository.lock(studyMeeting);
 
         locked.setTitle(title);
         locked.setSummary(summary);
+        if (completed) {
+            locked.complete();
+        } else {
+            locked.reopen();
+        }
     }
 
     public void delete(StudyMeeting studyMeeting) {

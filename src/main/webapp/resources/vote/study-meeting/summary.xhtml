@@ -19,7 +19,7 @@
         </composite:interface>
 
         <composite:implementation>
-            <label for="#{cc.attrs.id}" class="#{cc.attrs.labelStyleClass}">概要</label>
+            <label jsfc="h:outputLabel" for="#{cc.attrs.id}" class="#{cc.attrs.labelStyleClass}">概要</label>
             <span id="#{cc.attrs.switchPreviewId}">プレビュー</span>
             <h:message for="#{cc.attrs.id}" styleClass="text-danger error-message" />
             <textarea id="#{cc.attrs.id}" class="#{cc.attrs.styleClass}" jsfc="h:inputTextarea"

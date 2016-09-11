@@ -11,4 +11,11 @@
       WHERE s.completed = false
     ]]></query>
     </named-query>
+    <named-query name="StudyMeeting.findCompletedStudyMeetings">
+        <query><![CDATA[
+     SELECT s
+       FROM StudyMeeting s
+      WHERE s.completed = true
+    ]]></query>
+    </named-query>
 </entity-mappings>

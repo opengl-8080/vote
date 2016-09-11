@@ -32,6 +32,10 @@
 
                 <form jsfc="h:form">
                     <div class="panel panel-default study-meeting-detail">
+                        <ui:fragment rendered="#{studyMeetingDetailBean.completed}">
+                            <h3 class="text-center">この勉強会は実施済みです</h3>
+                        </ui:fragment>
+
                         <div class="form-group">
                             <label class="control-label">タイトル</label>
                             <p class="form-control-static">#{studyMeetingDetailBean.title}</p>
@@ -59,17 +63,19 @@
                             </p>
                         </div>
 
-                        <div class="form-group text-center">
-                            <input type="submit" value="参加を希望する"
-                                   class="btn btn-primary"
-                                   rendered="#{!studyMeetingDetailBean.participatedByCurrentUser}"
-                                   jsf:action="#{studyMeetingDetailBean.wishToParticipate()}" />
+                        <ui:fragment rendered="#{!studyMeetingDetailBean.completed}">
+                            <div class="form-group text-center">
+                                <input type="submit" value="参加を希望する"
+                                       class="btn btn-primary"
+                                       rendered="#{!studyMeetingDetailBean.participatedByCurrentUser}"
+                                       jsf:action="#{studyMeetingDetailBean.wishToParticipate()}" />
 
-                            <input type="submit" value="参加をキャンセルする"
-                                   class="btn btn-danger"
-                                   rendered="#{studyMeetingDetailBean.participatedByCurrentUser}"
-                                   jsf:action="#{studyMeetingDetailBean.cancelToParticipate()}" />
-                        </div>
+                                <input type="submit" value="参加をキャンセルする"
+                                       class="btn btn-danger"
+                                       rendered="#{studyMeetingDetailBean.participatedByCurrentUser}"
+                                       jsf:action="#{studyMeetingDetailBean.cancelToParticipate()}" />
+                            </div>
+                        </ui:fragment>
 
                         <ui:fragment rendered="#{currentAccessUser.administrator}">
                             <div class="form-group text-right">
