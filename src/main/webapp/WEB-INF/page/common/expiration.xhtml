@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:vote="http://xmlns.jcp.org/jsf/composite/vote/common"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <head>
     </head>
@@ -9,14 +9,7 @@
         <ui:composition template="/WEB-INF/page/template.xhtml">
             <ui:define name="title">ページの有効期限切れ</ui:define>
             <ui:define name="content">
-                <div class="text-center">
-                    <div class="h2 text-danger">
-                        ページの有効期限が切れています。<br />
-                        もう一度はじめから操作をやり直してください。
-                    </div>
-                    <a class="back-top"
-                       jsf:outcome="/study-meeting/uncompleted.xhtml">一覧へ戻る</a>
-                </div>
+                <vote:back-top message="ページの有効期限が切れています。もう一度はじめから操作をやり直してください。" />
             </ui:define>
         </ui:composition>
     </body>

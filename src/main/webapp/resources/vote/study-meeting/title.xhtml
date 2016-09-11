@@ -7,7 +7,6 @@
     </head>
     <body>
         <composite:interface>
-            <composite:attribute name="id" default="title" />
             <composite:attribute name="value" />
             <composite:attribute name="required" default="true" />
             <composite:attribute name="labelStyleClass" default="control-label" />
@@ -15,9 +14,9 @@
         </composite:interface>
 
         <composite:implementation>
-            <label jsfc="h:outputLabel" for="#{cc.attrs.id}" class="#{cc.attrs.labelStyleClass}">タイトル</label>
-            <span jsfc="h:messages" for="#{cc.attrs.id}" styleClass="text-danger error-message"></span>
-            <input id="#{cc.attrs.id}" type="text" class="#{cc.attrs.styleClass}" jsfc="h:inputText"
+            <label jsfc="h:outputLabel" for="title" class="#{cc.attrs.labelStyleClass}">タイトル</label>
+            <h:message for="title" styleClass="text-danger studyMeetingMaintenance_title-error" />
+            <input id="title" type="text" class="#{cc.attrs.styleClass}" jsfc="h:inputText"
                    value="#{cc.attrs.value}"
                    required="#{cc.attrs.required}"
                    maxlength="100" />

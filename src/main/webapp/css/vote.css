@@ -1,4 +1,4 @@
-.main-block {
+.main {
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
@@ -7,21 +7,21 @@
     max-width: 800px;
 }
 
-.list-item {
+.listItem {
     font-size: 1.3em;
     padding: 20px;
     width: 500px;
     margin: 10px auto;
 }
 
-.list-item label {
+.listItem_label {
     display: inline-block;
     width: 130px;
     margin-bottom: 5px;
     margin-top: 5px;
 }
 
-.list-item a {
+.listItem_titleLink {
     width: 300px;
     display: inline-block;
     text-overflow: ellipsis;
@@ -31,51 +31,50 @@
     color: #337ab7;
 }
 
-.list-item a:hover {
+.listItem_titleLink:hover {
     color: #23527c;
 }
 
-.study-meeting-maintenance {
+.studyMeetingMaintenance {
     padding: 30px;
 }
 
-.study-meeting-maintenance textarea {
+.studyMeetingMaintenance_summary {
     resize: vertical;
     min-height: 600px;
     font-family: "ＭＳ　ゴシック", monospace;
 }
 
-.study-meeting-detail {
+.studyMeetingDetail {
     padding: 30px;
 }
 
-.study-meeting-detail label {
+.studyMeetingDetail_label {
     border-bottom: 1px solid #ccc;
     display: block;
     padding-bottom: 10px;
 }
 
-.study-meeting-detail p {
+.studyMeetingDetail_content {
     padding-left: 10px;
 }
 
-.back-top {
-    display: block;
-    margin-top: 50px;
-    font-size: 1.7em;
-}
-
-.error-message {
-    margin-left: 10px;
-}
-
-#switchPreview {
+.studyMeetingMaintenance_switchPreview {
     color: #2fa4e7;
     cursor: pointer;
     margin-left: 15px;
 }
 
-#switchPreview:hover {
+.studyMeetingMaintenance_switchPreview:hover {
     color: #3a87ad;
 }
 
+.backTop_link {
+    display: block;
+    margin-top: 50px;
+    font-size: 1.7em;
+}
+
+.studyMeetingMaintenance_title-error {
+    margin-left: 10px;
+}

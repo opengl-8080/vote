@@ -10,14 +10,15 @@
             <ui:define name="title">勉強会一覧</ui:define>
             <ui:define name="content">
                 <div jsfc="ui:repeat" value="#{uncompletedStudyMeetingsBean.studyMeetingList}" var="studyMeeting"
-                     class="panel panel-default list-item">
+                     class="panel panel-default listItem">
                     <div>
-                        <label>タイトル</label>
-                        <a jsf:outcome="/study-meeting/detail.xhtml?id=#{studyMeeting.id}">#{studyMeeting.title}</a>
+                        <label class="listItem_label">タイトル</label>
+                        <a class="listItem_titleLink"
+                           jsf:outcome="/study-meeting/detail.xhtml?id=#{studyMeeting.id}">#{studyMeeting.title}</a>
                     </div>
 
                     <div>
-                        <label>参加希望者</label>
+                        <label class="listItem_label">参加希望者</label>
                         <span>#{studyMeeting.numberOfWishing} 人</span>
                     </div>
                 </div>

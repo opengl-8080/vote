@@ -8,21 +8,20 @@
     </head>
     <body>
         <composite:interface>
-            <composite:attribute name="id" default="summary" />
             <composite:attribute name="value" />
             <composite:attribute name="required" default="true" />
             <composite:attribute name="labelStyleClass" default="control-label" />
-            <composite:attribute name="styleClass" default="form-control summaryTextArea" />
+            <composite:attribute name="styleClass" default="form-control summaryTextArea studyMeetingMaintenance_summary" />
             <composite:attribute name="previewId" default="preview" />
             <composite:attribute name="switchPreviewId" default="switchPreview" />
             <composite:attribute name="previewStyleClass" default="form-control-static markdown-body" />
         </composite:interface>
 
         <composite:implementation>
-            <label jsfc="h:outputLabel" for="#{cc.attrs.id}" class="#{cc.attrs.labelStyleClass}">概要</label>
-            <span id="#{cc.attrs.switchPreviewId}">プレビュー</span>
-            <h:message for="#{cc.attrs.id}" styleClass="text-danger error-message" />
-            <textarea id="#{cc.attrs.id}" class="#{cc.attrs.styleClass}" jsfc="h:inputTextarea"
+            <label jsfc="h:outputLabel" for="summary" class="#{cc.attrs.labelStyleClass}">概要</label>
+            <span id="#{cc.attrs.switchPreviewId}" class="studyMeetingMaintenance_switchPreview">プレビュー</span>
+            <h:message for="summary" styleClass="text-danger studyMeetingMaintenance_title-error" />
+            <textarea id="summary" class="#{cc.attrs.styleClass}" jsfc="h:inputTextarea"
                       value="#{cc.attrs.value}"
                       required="#{cc.attrs.required}"
                       a:maxlength="10000" />
