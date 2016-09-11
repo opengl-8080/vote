@@ -3,6 +3,8 @@ package vote.domain.studymeeting;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import vote.domain.user.IpAddress;
+import vote.domain.user.User;
 import vote.util.DateUtil;
 
 import java.time.LocalDateTime;
@@ -12,6 +14,9 @@ import static org.assertj.core.api.Assertions.*;
 import static vote.test.TestConstants.*;
 
 public class StudyMeetingTest {
+
+    private static final User user1 = new User(new IpAddress("1.1.1.1"));
+    private static final User user2 = new User(new IpAddress("1.1.1.2"));
 
     private StudyMeeting studyMeeting;
 
@@ -177,6 +182,69 @@ public class StudyMeetingTest {
         // verify
         boolean actual = studyMeeting.isCompleted();
         assertThat(actual).isFalse();
+    }
+
+    @Test
+    public void ユーザーを指定して参加希望の登録日時で降順比較ができる_比較対象の参加希望のほうが古い場合() throws Exception {
+        // setup
+        StudyMeeting a = newStudyMeeting();
+        addUser(a, user1, 59);
+        addUser(a, user2, 0);
+
+        StudyMeeting b = newStudyMeeting();
+        addUser(b, user1, 58);
+        addUser(b, user2, 1);
+
+        // exercise
+        int actual = a.compareByRegisterDateTimeOfWishingDesc(user1, b);
+
+        // verify
+        assertThat(actual).isLessThan(0);
+    }
+
+    @Test
+    public void ユーザーを指定して参加希望の登録日時で降順比較ができる_比較対象の参加希望のほうが新しい場合() throws Exception {
+        // setup
+        StudyMeeting a = newStudyMeeting();
+        addUser(a, user1, 58);
+        addUser(a, user2, 0);
+
+        StudyMeeting b = newStudyMeeting();
+        addUser(b, user1, 59);
+        addUser(b, user2, 1);
+
+        // exercise
+        int actual = a.compareByRegisterDateTimeOfWishingDesc(user1, b);
+
+        // verify
+        assertThat(actual).isGreaterThan(0);
+    }
+
+    @Test
+    public void ユーザーを指定して参加希望の登録日時で降順比較ができる_比較対象と同じ時刻の場合() throws Exception {
+        // setup
+        StudyMeeting a = newStudyMeeting();
+        addUser(a, user1, 58);
+        addUser(a, user2, 0);
+
+        StudyMeeting b = newStudyMeeting();
+        addUser(b, user1, 58);
+        addUser(b, user2, 1);
+
+        // exercise
+        int actual = a.compareByRegisterDateTimeOfWishingDesc(user1, b);
+
+        // verify
+        assertThat(actual).isEqualTo(0);
+    }
+
+    private static StudyMeeting newStudyMeeting() {
+        return new StudyMeeting(new Title("abc"), new Summary("xxx"));
+    }
+
+    private static void addUser(StudyMeeting studyMeeting, User user, int second) {
+        DateUtil.fixeNow(2016, 1, 1, 0, 0, second);
+        studyMeeting.add(user);
     }
 
     @After

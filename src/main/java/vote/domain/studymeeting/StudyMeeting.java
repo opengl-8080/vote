@@ -108,6 +108,7 @@ public class StudyMeeting implements Serializable {
         return this.title.compareTo(other.title);
     }
 
+
     /**
      * 指定したユーザーが、この勉強会への参加を希望しているかどうか確認する.
      * @param user 参加希望が確認するユーザー
@@ -198,5 +199,25 @@ public class StudyMeeting implements Serializable {
 
     ParticipateWishing getLastAddedWishing() {
         return this.participateWishingList.get(this.participateWishingList.size() - 1);
+    }
+
+    /**
+     * 指定したユーザーが参加希望を登録した日時で降順に比較する.
+     * @param user 参加希望を登録したユーザー
+     * @param other 比較対象の勉強会
+     * @return 比較結果
+     */
+    public int compareByRegisterDateTimeOfWishingDesc(User user, StudyMeeting other) {
+        ParticipateWishing thisParticipateWishing = this.findParticipateWishing(user);
+        ParticipateWishing otherParticipateWishing = other.findParticipateWishing(user);
+
+        return -1 * thisParticipateWishing.compareByRegisterDateTime(otherParticipateWishing);
+    }
+
+    private ParticipateWishing findParticipateWishing(User user) {
+        return this.participateWishingList.stream()
+                    .filter(p -> p.getUser().equals(user))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException("参加希望を提出していないユーザーです（" + user + "）"));
     }
 }

@@ -16,6 +16,7 @@
         <nav class="navbar navbar-default">
             <ul class="nav navbar-nav">
                 <li><a href="#{request.contextPath}/">勉強会一覧</a></li>
+                <li><a href="#{request.contextPath}/study-meeting/participate.xhtml">参加勉強会一覧</a></li>
                 <li><a href="#{request.contextPath}/study-meeting/completed.xhtml">実施済み</a></li>
                 <ui:fragment rendered="#{currentAccessUser.administrator}">
                   <li><a href="#{request.contextPath}/study-meeting/register.xhtml">新規登録</a></li>

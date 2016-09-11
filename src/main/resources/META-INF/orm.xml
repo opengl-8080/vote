@@ -18,4 +18,12 @@
       WHERE s.completed = true
     ]]></query>
     </named-query>
+    <named-query name="StudyMeeting.findParticipateStudyMeetings">
+        <query><![CDATA[
+     SELECT s
+       FROM StudyMeeting s
+ INNER JOIN s.participateWishingList participateWishing
+      WHERE participateWishing.user = :user
+    ]]></query>
+    </named-query>
 </entity-mappings>

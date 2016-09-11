@@ -1,6 +1,7 @@
 package vote.domain.studymeeting;
 
 import vote.domain.Id;
+import vote.domain.user.User;
 
 public interface StudyMeetingRepository {
 
@@ -21,6 +22,13 @@ public interface StudyMeetingRepository {
      * @return 実施済みの勉強会
      */
     CompletedStudyMeetings findCompletedStudyMeetings();
+
+    /**
+     * 指定したユーザーが参加を希望している勉強会をすべて取得する.
+     * @param user 参加を希望しているユーザー
+     * @return ユーザーが参加を希望している全勉強会
+     */
+    ParticipateStudyMeetings findParticipateStudyMeetings(User user);
 
     /**
      * 指定したIDの勉強会を取得する.
