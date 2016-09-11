@@ -2,25 +2,33 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3c.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:composite="http://xmlns.jcp.org/jsf/composite">
     <head>
     </head>
     <body>
         <composite:interface>
-            <composite:attribute name="id" default="title" />
+            <composite:attribute name="id" default="summary" />
             <composite:attribute name="value" />
             <composite:attribute name="required" default="true" />
             <composite:attribute name="labelStyleClass" default="control-label" />
-            <composite:attribute name="styleClass" default="form-control" />
+            <composite:attribute name="styleClass" default="form-control summaryTextArea" />
+            <composite:attribute name="previewId" default="preview" />
+            <composite:attribute name="switchPreviewId" default="switchPreview" />
+            <composite:attribute name="previewStyleClass" default="form-control-static markdown-body" />
         </composite:interface>
 
         <composite:implementation>
-            <label for="#{cc.attrs.id}" class="#{cc.attrs.labelStyleClass}">タイトル</label>
-            <span jsfc="h:messages" for="#{cc.attrs.id}" styleClass="text-danger error-message"></span>
-            <input id="#{cc.attrs.id}" type="text" class="#{cc.attrs.styleClass}" jsfc="h:inputText"
-                   value="#{cc.attrs.value}"
-                   required="#{cc.attrs.required}"
-                   maxlength="100" />
+            <label for="#{cc.attrs.id}" class="#{cc.attrs.labelStyleClass}">概要</label>
+            <span id="#{cc.attrs.switchPreviewId}">プレビュー</span>
+            <h:message for="#{cc.attrs.id}" styleClass="text-danger error-message" />
+            <textarea id="#{cc.attrs.id}" class="#{cc.attrs.styleClass}" jsfc="h:inputTextarea"
+                      value="#{cc.attrs.value}"
+                      required="#{cc.attrs.required}"
+                      a:maxlength="10000" />
+
+            <p class="#{cc.attrs.previewStyleClass}" id="#{cc.attrs.previewId}">
+            </p>
         </composite:implementation>
     </body>
 </html>

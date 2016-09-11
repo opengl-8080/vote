@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:vote="http://xmlns.jcp.org/jsf/composite/vote/study-meeting">
     <head>
     </head>
     <body>
@@ -15,16 +15,8 @@
         </f:metadata>
 
         <ui:composition template="/WEB-INF/page/template.xhtml">
-            <ui:define name="stylesheet">
-                <link rel="stylesheet" href="#{request.contextPath}/css/github.css" />
-                <link rel="stylesheet" href="#{request.contextPath}/css/github-markdown.css" />
-            </ui:define>
-
             <ui:define name="javascript">
-                <script type="text/javascript" src="#{request.contextPath}/js/lib/highlight.pack.js"></script>
-                <script type="text/javascript" src="#{request.contextPath}/js/lib/marked.min.js"></script>
-                <script type="text/javascript" src="#{request.contextPath}/js/common/MarkdownUtil.js"></script>
-                <script type="text/javascript" src="#{request.contextPath}/js/study-meeting/modify.js"></script>
+                <script type="text/javascript" src="#{request.contextPath}/js/study-meeting/summary-markdown-preview.js"></script>
             </ui:define>
 
             <ui:define name="title">勉強会新規編集</ui:define>
@@ -47,25 +39,11 @@
 
                     <div class="panel panel-default study-meeting-maintenance">
                         <div class="form-group">
-                            <label for="title" class="control-label">タイトル</label>
-                            <h:message for="title" styleClass="text-danger error-message" />
-                            <input jsf:id="title" type="text" class="form-control"
-                                   value="#{modifyStudyMeetingBean.title}"
-                                   required="true"
-                                   maxlength="100" />
+                            <vote:title value="#{modifyStudyMeetingBean.title}" />
                         </div>
 
                         <div class="form-group">
-                            <label for="summary" class="control-label">概要</label>
-                            <span id="switchPreview">プレビュー</span>
-                            <h:message for="summary" styleClass="text-danger error-message" />
-                            <textarea jsf:id="summary" class="form-control summaryTextArea"
-                                      value="#{modifyStudyMeetingBean.summary}"
-                                      required="true"
-                                      a:maxlength="10000" />
-
-                            <p class="form-control-static markdown-body" id="preview">
-                            </p>
+                            <vote:summary value="#{modifyStudyMeetingBean.summary}" />
                         </div>
 
                         <div class="form-group">

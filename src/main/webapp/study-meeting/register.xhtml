@@ -4,13 +4,18 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:vote="http://xmlns.jcp.org/jsf/composite/vote/study-meeting">
     <head>
     </head>
     <body>
         <ui:composition template="/WEB-INF/page/template.xhtml">
+            <ui:define name="javascript">
+                <script type="text/javascript" src="#{request.contextPath}/js/study-meeting/summary-markdown-preview.js"></script>
+            </ui:define>
+
             <ui:define name="title">勉強会新規登録</ui:define>
             <ui:define name="content">
+
                 <form jsfc="h:form">
                     <h1>勉強会 新規登録</h1>
 
@@ -21,21 +26,11 @@
 
                     <div class="panel panel-default study-meeting-maintenance">
                         <div class="form-group">
-                            <label for="title" class="control-label">タイトル</label>
-                            <h:message for="title" styleClass="text-danger error-message" />
-                            <input jsf:id="title" type="text" class="form-control"
-                                   value="#{registerStudyMeetingBean.title}"
-                                   required="true"
-                                   maxlength="100" />
+                            <vote:title value="#{registerStudyMeetingBean.title}" />
                         </div>
 
                         <div class="form-group">
-                            <label for="summary" class="control-label">概要</label>
-                            <h:message for="summary" styleClass="text-danger error-message" />
-                            <textarea jsf:id="summary" class="form-control"
-                                      value="#{registerStudyMeetingBean.summary}"
-                                      required="true"
-                                      a:maxlength="10000" />
+                            <vote:summary value="#{registerStudyMeetingBean.summary}" />
                         </div>
 
                         <div class="form-group">

@@ -7,6 +7,8 @@
         <meta charset="UTF-8" />
         <title><ui:insert name="title">勉強会参加希望調査</ui:insert></title>
         <link rel="stylesheet" href="#{request.contextPath}/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="#{request.contextPath}/css/github.css" />
+        <link rel="stylesheet" href="#{request.contextPath}/css/github-markdown.css" />
         <ui:insert name="stylesheet" />
         <link rel="stylesheet" href="#{request.contextPath}/css/vote.css" />
     </head>
@@ -22,6 +24,10 @@
         <div class="main-block">
             <ui:insert name="content">content</ui:insert>
         </div>
+
+        <script type="text/javascript" src="#{request.contextPath}/js/lib/highlight.pack.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/js/lib/marked.min.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/js/common/MarkdownUtil.js"></script>
         <ui:insert name="javascript" />
     </body>
 </html>
