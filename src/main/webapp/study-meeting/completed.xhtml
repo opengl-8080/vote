@@ -16,7 +16,10 @@
                     <div>
                         <label class="listItem_label">タイトル</label>
                         <a  class="listItem_titleLink"
-                            jsf:outcome="/study-meeting/detail.xhtml?id=#{studyMeeting.id}">#{studyMeeting.title}</a>
+                            jsf:outcome="/study-meeting/detail.xhtml?id=#{studyMeeting.id}"
+                            title="#{studyMeeting.title}">
+                            #{studyMeeting.title}
+                        </a>
                     </div>
 
                     <div>
